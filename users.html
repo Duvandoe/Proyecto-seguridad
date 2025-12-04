@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Gestión de Usuarios</title>
+</head>
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white p-6">
+
+  <!-- HEADER -->
+  <header class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Gestión de Usuarios</h1>
+    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold" id="openCreateUser">
+  Añadir Usuario
+</button>
+<button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold">
+  <a href="/dashboard.html">Regresar al Panel</a>
+</button>
+
+  </header>
+
+  <!-- USERS TABLE -->
+  <div id="userManagement" class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow border border-gray-200 dark:border-gray-700">
+    <table class="w-full text-left text-sm">
+      <thead>
+        <tr class="text-gray-600 dark:text-gray-300 border-b border-gray-300 dark:border-gray-700">
+          <th class="py-3">Nombre</th>
+          <th>Correo</th>
+          <th>Rol</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="usersTableBody" class="divide-y divide-gray-300 dark:divide-gray-700">
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-10 text-center text-gray-500 dark:text-gray-400 text-sm">
+    Módulo de Administración de Usuarios — Prototipo de Seguridad TI
+  </footer>
+
+  <!-- MODAL: CREAR / EDITAR USUARIO -->
+<div id="userModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-xl w-full max-w-md shadow-xl border border-gray-700">
+    <h2 id="modalTitle" class="text-xl font-bold mb-4">Nuevo Usuario</h2>
+
+    <div class="space-y-4">
+      <input id="modalFullName" type="text" placeholder="Nombre completo"
+        class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+
+      <input id="modalEmail" type="email" placeholder="Correo"
+        class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+
+      <input id="modalPassword" type="password" placeholder="Contraseña"
+        class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+
+      <select id="modalRole" class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
+        <option value="admin">Administrador</option>
+        <option value="support">Soporte</option>
+        <option value="auditor">Auditor</option>
+      </select>
+    </div>
+
+    <div class="flex justify-end mt-6 gap-3">
+      <button id="closeModal"
+        class="px-4 py-2 bg-gray-600 hover:bg-gray-700 rounded-lg text-white">Cancelar</button>
+
+      <button id="saveUserBtn"
+        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold">Guardar</button>
+    </div>
+  </div>
+</div>
+<script type="module" src="/app.js"></script>
+</body>
+</html>

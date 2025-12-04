@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Registro - Prototipo Seguridad</title>
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
+
+  <!-- CONTENEDOR IDENTIFICADO PARA EL app.js -->
+  <main id="register" class="w-full max-w-md bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700">
+
+    <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">
+      Crear Cuenta
+    </h2>
+
+    <form class="space-y-5">
+
+      <!-- Nombre Completo -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 mb-1">Nombre Completo</label>
+        <input 
+          type="text"
+          name="full_name"
+          placeholder="Ej: Juan Pérez"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600
+                 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white 
+                 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+      </div>
+
+      <!-- Correo -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 mb-1">Correo Electrónico</label>
+        <input 
+          type="email"
+          name="email"
+          placeholder="usuario@empresa.com"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600
+                 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white 
+                 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+      </div>
+
+      <!-- Contraseña -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 mb-1">Contraseña</label>
+        <input 
+          type="password"
+          name="password"
+          placeholder="••••••••"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white
+                 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+      </div>
+
+      <!-- Confirmación -->
+      <div>
+        <label class="block text-gray-700 dark:text-gray-300 mb-1">Confirmar Contraseña</label>
+        <input 
+          type="password"
+          name="confirm_password"
+          placeholder="••••••••"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
+                 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white
+                 focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+      </div>
+
+      <!-- Botón Registrar -->
+      <button 
+        type="button"
+        class="w-full py-2 rounded-lg bg-green-600 hover:bg-green-700 
+               text-white font-semibold transition">
+        Registrarse
+      </button>
+
+      <p class="text-center text-gray-600 dark:text-gray-400 text-sm">
+        ¿Ya tienes una cuenta?  
+        <a href="/Login.html" class="text-blue-500 hover:underline cursor-pointer">
+          Inicia sesión
+        </a>
+      </p>
+
+    </form>
+
+  </main>
+
+  <!-- Tu app.js -->
+  <script type="module" src="/app.js"></script>
+
+</body>
+</html>

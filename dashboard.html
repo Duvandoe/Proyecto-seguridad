@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Dashboard</title>
+</head>
+
+<style>
+  /* CARD */
+  .card{
+    background: rgba(31,41,55,0.65); /* bg-gray-800/65 */
+    border: 1px solid rgba(55,65,81,0.6); /* border-gray-700/60 */
+    border-radius: 1rem; /* rounded-2xl */
+    padding: 1.25rem; /* p-5 */
+    box-shadow: 0 10px 30px rgba(2,6,23,0.6); /* shadow-xl strong */
+    backdrop-filter: blur(6px);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .card:hover{
+    transform: scale(1.02);
+    box-shadow: 0 18px 40px rgba(2,6,23,0.7);
+    border-color: rgba(99,102,241,0.25); /* subtle accent on hover */
+  }
+  .card h2{
+    margin: 0 0 0.75rem 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #F8FAFC; /* text-gray-100 */
+    letter-spacing: 0.2px;
+  }
+
+  /* ITEM (lista de actividad) */
+  .item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0.75rem;
+    background: rgba(51,65,85,0.45); /* dark card item */
+    border-radius: 0.75rem;
+    border: 1px solid rgba(55,65,81,0.5);
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+  .item:hover{
+    transform: scale(1.01);
+    background: rgba(51,65,85,0.6);
+    border-color: rgba(99,102,241,0.18);
+  }
+
+  /* STATUS DOT */
+  .status-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    display:inline-block;
+    box-shadow: 0 0 8px rgba(34,197,94,0.25);
+  }
+  .status-dot.green { background: #10B981; animation: pulse 2s infinite; }
+  .status-dot.yellow{ background: #F59E0B; animation: pulse 2.2s infinite; }
+  .status-dot.red{ background:#EF4444; animation: pulse 2.2s infinite; }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.12); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* NAVBAR */
+  nav{
+    background: rgba(17,24,39,0.85);
+    border-bottom: 1px solid rgba(55,65,81,0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  /* PRE / LOGS */
+  pre{
+    background: rgba(2,6,23,0.55);
+    border: 1px solid rgba(55,65,81,0.5);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    color: #CBD5E1;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    white-space: pre-wrap;
+  }
+
+  /* BUTTONS */
+  button, .btn {
+    cursor:pointer;
+    font-weight:600;
+    border-radius: 0.6rem;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  button:active { transform: translateY(1px); }
+
+  /* LINKS */
+  a { color:#60A5FA; text-decoration:none; }
+  a:hover { color:#93C5FD; text-decoration:underline; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width:8px; height:8px; }
+  ::-webkit-scrollbar-track { background: rgba(15,23,42,0.4); border-radius:8px; }
+  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.22); border-radius:6px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.32); }
+
+  /* Responsive tweaks */
+  @media (max-width: 640px){
+    .card { padding: 0.9rem; border-radius: 0.9rem; }
+  }
+</style>
+
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-100">
+
+  <!-- NAVBAR -->
+  <nav class="bg-gray-800 px-6 py-4 flex justify-between items-center shadow">
+    <h1 class="text-xl font-bold">Panel de Control</h1>
+
+    <div class="flex items-center gap-4">
+      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg"><a href="/security-dashboard.html">Monitoreo</a></button>
+      <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg"><a href="/users.html">Gestión de Usuarios</a></button>
+      <button id="logoutBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg">
+        Cerrar Sesión
+      </button>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main id="dashboard" class="p-6 space-y-6">
+
+    <!-- TARJETAS SUPERIORES -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <div class="card">
+        <h2>Estado del Servidor</h2>
+        <div id="serverStatus"></div>
+      </div>
+
+      <div class="card">
+        <h2>Uso de Recursos</h2>
+        <div id="resourceStats"></div>
+      </div>
+
+      <div class="card">
+        <h2>Respaldo en la Nube</h2>
+        <div id="backupProgress"></div>
+      </div>
+
+    </div>
+
+    <!-- SECCIÓN INFERIOR -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <div class="card h-80 overflow-auto">
+        <h2>Registro del Sistema</h2>
+        <pre id="systemLogs" class="text-xs leading-5"></pre>
+      </div>
+
+      <div class="card h-80 overflow-auto">
+        <h2>Actividad de Usuarios</h2>
+        <ul id="usersActivity" class="space-y-3"></ul>
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <script type="module" src="/app.js"></script>
+  <script type="module" src="/dashboard.js"></script>
+
+</body>
+</html>
